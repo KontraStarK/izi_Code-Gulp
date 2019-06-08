@@ -94,6 +94,12 @@ gulp.task('images', () => {
       .pipe(sizeFile())
       .pipe(browserSync.stream());
 });
+// Fonts
+gulp.task('fonts', () => {
+   return gulp.src('./src/fonts/**/*')
+      .pipe(gulp.dest(path.dest + '/fonts'))
+      .pipe(browserSync.stream());
+});
 
 //Сleaning the folder Build
 gulp.task('clean', function () {
@@ -115,12 +121,13 @@ gulp.task('watch', () => {
          gulp.watch('./src/scss/**/*.scss', gulp.series('styles'))
          gulp.watch('./src/js/**/*.js', gulp.series('scripts'))
          gulp.watch('./src/img/**/*', gulp.series('images'))
+         gulp.watch('./src/fonts/**/*', gulp.series('fonts'))
          gulp.watch('./build/**/*.html').on('change', browserSync.reload);
          gulp.watch('./build/**/*.css').on('change', browserSync.reload);
 
                });
 
 
-               gulp.task('build', gulp.series('clean', gulp.parallel('html', 'styles', 'scripts', 'images'))); gulp.task('default', gulp.series('build', 'watch'));
+               gulp.task('build', gulp.series('clean', gulp.parallel('html', 'styles', 'scripts', 'images','fonts'))); gulp.task('default', gulp.series('build', 'watch'));
 
                //To start, type the command "gulp"
